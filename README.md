@@ -1,11 +1,2 @@
 # Currency-Exchange-Conventer
-this application use api that support 169 diffirent currency
-you can choose your currency and target currency and type the amount
-as soon as you type the amount of money you want to convert it. you get the result
-all currencies name are sorted alphabitically
-application also containing a table consists of 169 row of currencies (name,abbrivation,value)according to select box which has defulat selected currency to EGP
-of course you can change the EGP to what ever you want and get the reault below in the table
-the data in the table are sorted in assending way and also you can control the way you sorted data in table
-from assending to dessinding
-you can filter the table  using input box by typing the name or the abbr of the currency 
-last thing in our application we display the date 
+This application use API that supports 169 different currency. You can choose your currency and target currency and type the amount. As soon as you type the amount of money you want to convert. You get the result. All currency names are sorted alphabetically. The application also contains a table consisting of 169 rows of currencies (name, abbreviation, value)according to the select box. Which has a default selected currency to EGP. Of course, you can change the EGP to whatever you want and get the result below. In the table, the data are sorted in an ascending way. And also you can control the way you sort data in a table from ascending to descending. You can filter the table using the input box by typing the name or the abbr of the currency. Last thing in our application we display the updated date of the currencies exchange rate
