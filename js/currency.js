@@ -111,7 +111,13 @@ function getCurrencyDetails(sortType = "dsc") {
       } else {
         htmlElement_name[i].innerHTML = matchedCurrencyName[0];
         htmlElement_abbr[i].innerHTML = currencies_values[i][0];
-        htmlElement_amount[i].innerHTML = `<mark style="color:#FFFFFF;background:#FF0000;">${Number.parseFloat(currencies_values[i][1]).toFixed(2)}</mark>`
+        htmlElement_amount[i].innerHTML = `<mark style="color:#FFFFFF;background:#FF0000;">${Number.parseFloat(currencies_values[i][1]).toFixed(2)}</mark>`;
+        rowTable.addEventListener('mouseover',()=>{
+          htmlElement_amount[i].children[0].style.background = "#000928";
+        });
+        rowTable.addEventListener('mouseleave',()=>{
+          htmlElement_amount[i].children[0].innerHTML.style.background = "#FF0000";
+        });
       }
 
       if (dataTable.children[1].nodeName === "TBODY") {
@@ -122,7 +128,7 @@ function getCurrencyDetails(sortType = "dsc") {
 }
 setTimeout(()=>{
   getCurrencyDetails();
-},0);
+},10);
 //getCurrencyDetails();
 baseC.addEventListener("change", function (evnet) {
   baseName = baseC.value;
