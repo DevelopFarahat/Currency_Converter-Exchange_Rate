@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Currency Converter | Currency Exchange  Rate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="keywords" content="currency converter, convert currency, currency exchange rate,dollar price today,egyption pound price today">
+    <meta name="description" content="we provide you a daily updated data about currency interchange. we support over 169 different currencies all over the world. choose your currency and target currency and know what type of change has happened to yours">
+    <meta name="author" content="Mohamed Farahat">
+    <meta name="audience" content="all">
+    <!-- Search Engine -->
+    <meta name="description" content="Currency converter support 169 different currencies. choose your Currency and know what has happened to your currency exchange rate. rise or drop">
+    <meta name="image" content="share-bg.jpg">
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="Currency Converter | Currency Exchange  Rate">
+    <meta itemprop="description" content="Currency converter support 169 different currencies. choose your Currency and know what has happened to your currency exchange rate. rise or drop">
+    <meta itemprop="image" content="share-bg.jpg">
+    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta property="og:title" content="currency conventer& interchange-data-application">
+    <meta property="og:description" content="Currency converter support 169 different currencies. choose your Currency and know what has happened to your currency exchange rate. rise or drop">
+    <meta property="og:image" content="share-bg.jpg">
+    <meta property="og:image:alt" content="image may contain money of different cuntries & bitcoin">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Currency Converter | Currency Exchange  Rate">
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container-fluid container1" id="container1">
+        <div class="row1">
+            <div class="">
+                <div class="base-currency-label-select-conttainer">
+                <label class="label-base-currency">base currency</label>
+                <select id="baseCurrency" class="base-currency form-select">
+                    <option class="opt" value="selected">select</option>
+                </select>
+            </div>
+            </div>
+            <div class="">
+                <div class="target-currency-label-select-container">
+                    <label class="label-target-currency">target currency</label>
+                    <select class="target-currency form-select" id="targetCurrency">
+                        <option class="opt" value="selected">select</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row2" id="row2">
+            <div class="">
+                <div class="user-amount-label-txt-container">
+                    <label class="label-amount">amount</label>
+                    <input type="number" class="form-control" name="number" id="userInputValue">
+                </div>
+            </div>
+            <div class="">
+                <div class="result-label-txt-container">
+                    <label class="label-result">result</label>
+                    <input type="number" class="form-control" name="number" id="resultValue" value="0.00" style="color:#FF0000;"readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid container2" id="container2">
+        <div class="row3" id="row4">
+            <div class="">
+                <div class="currency-label-select-container">
+                <label class="label-currency-filter">currency</label>
+                <select type="text" name="filterTxt" class="form-select filter-currency" id="filterCurrency">
+                </select>
+            </div>
+            </div>
+            <div class="">
+                <div class="filter-currency-label-input-container">
+                <label class="label-currency">Filter</label>
+                <input type="text" name="filter-text" class="form-control">
+            </div>
+            </div>
+            <div class="date-container">
+                <div class="date-updated-label-container">
+                <label class="last-updated-label">Date</label>
+                <label  name="lastUpdate-text" class="last-update-txt"></label>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="contanier3" id="container3">
+        <div class="table-responsive table-container">
+            <table class="table  data-table" id="dataTable">
+               <thead>
+                <tr id="header" class="header">
+                    <th>Name</th>
+                    <th>abbreviation</th>
+                    <th>value</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container-fluid container4"id="container4">
+        <div class="row4" id="row5">
+            <div class="">
+                <div class="soert-label-select-container">
+                <label class="label-sort">sort</label>
+                <select class="form-select select-sort">
+                    <option selected value="dsc">A/Z</option>
+                    <option value="asc">Z/A</option> 
+                </select>
+            </div>
+            </div>
+            <!--
+            <div class="col-2">
+                <label class="label-pages">Pages</label>
+            </div>
+            <div class="col-2">
+                <select class="form-select select-pages">
+                    <option>10</option>
+                    <option>15</option>
+                    <option>20</option>
+                </select>
+            </div>-->
+        </div>
+    </div>
+    <script src="js/currency.js"></script>
+</body>
+
+</html>
