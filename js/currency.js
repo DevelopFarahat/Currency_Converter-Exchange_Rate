@@ -1,4 +1,3 @@
-
 let baseCurrency = document.getElementById("baseCurrency");
 let baseC = document.getElementById("filterCurrency");
 let dataTable = document.getElementById("dataTable");
@@ -12,7 +11,7 @@ let requestURL_Currency_name = "https://api.exchangerate.host/symbols";
 let currencies_Names_code = [];
 let currencies_values = [];
 let baseName = "EGP";
-let sortType;
+let sortType = "dsc";
 let request = new XMLHttpRequest();
 request.open("GET", requestURL_Currency_name);
 request.responseType = "json";
@@ -50,11 +49,14 @@ request.onload = function () {
   }
   counter++;
 };
-let htmlElement_name = [];
-let htmlElement_abbr = [];
-let htmlElement_amount = [];
-let sor_dsc = 'on';
-let elementCreationStatus = 'on';
+let htmlMainTable = [];
+let sor_dsc = "on";
+let elementCreationStatus = "on";
+let filterResultArray = [];
+let userMadeAFilter = false;
+let condition;
+let filtarationTable = [];
+let defaultSortIs;
 function getCurrencyDetails(sortType = "dsc") {
   let requestURLForFilterCurrency = `https://api.exchangerate.host/latest?base=${baseName}`;
   let req = new XMLHttpRequest();
@@ -71,21 +73,50 @@ function getCurrencyDetails(sortType = "dsc") {
         currencies_values = Object.entries(reponseValues[values]);
       }
     }
-    if (sortType === "dsc") {
-      currencies_values.sort((a, b) => b[1] - a[1]);
+    if (userMadeAFilter === true) {
+      if (defaultSortIs === "dsc")
+        currencies_values.sort((a, b) => b[1] - a[1]);
+      else currencies_values.sort((a, b) => a[1] - b[1]);
     } else {
-      currencies_values.sort((a, b) => a[1] - b[1]);
+      if (sortType === "dsc") {
+        currencies_values.sort((a, b) => b[1] - a[1]);
+      } else {
+        currencies_values.sort((a, b) => a[1] - b[1]);
+      }
     }
-    for (let i = 0; i < currencies_values.length; i++) {
+
+    htmlMainTable.forEach((tr, index) => {
+      if (userMadeAFilter === true) {
+        if (tr.getAttribute("style") !== "display: none;") {
+          filterResultArray.push(currencies_values[index]);
+          filtarationTable.push(tr);
+          if (sortType === "dsc") {
+            filterResultArray.sort((a, b) => b[1] - a[1]);
+          } else {
+            filterResultArray.sort((a, b) => a[1] - b[1]);
+          }
+        }
+      }
+    });
+    if (userMadeAFilter === true) {
+      condition = filterResultArray;
+    } else {
+      condition = currencies_values;
+    }
+    for (let i = 0; i < condition.length; i++) {
       let matchedCurrencyName = currencies_Names_code.find(
-        (item) => item[1] === currencies_values[i][0]
+        (item) => item[1] === condition[i][0]
       );
-      if (sortType === 'dsc' && sor_dsc === 'on' && elementCreationStatus === 'on') {
+      if (
+        sortType === "dsc" &&
+        sor_dsc === "on" &&
+        elementCreationStatus === "on"
+      ) {
         let rowTable = document.createElement("tr");
-        rowTable.addEventListener('mouseover',()=>{
+        rowTable.addEventListener("mouseover", () => {
           markCellTableAmount.style.background = "#000928";
         });
-        rowTable.addEventListener('mouseleave',()=>{
+        rowTable.addEventListener("mouseleave", () => {
           markCellTableAmount.style.background = "#FF0000";
         });
         let cellTableName = document.createElement("td");
@@ -97,63 +128,108 @@ function getCurrencyDetails(sortType = "dsc") {
         rowTable.append(cellTableAbbr);
         let cellTableAmount = document.createElement("td");
         let markCellTableAmount = document.createElement("mark");
-          markCellTableAmount.style.cssText = "color:#FFFFFF;background:#FF0000";
-          markCellTableAmount.append(
-          Number.parseFloat(currencies_values[i][1]).toFixed(2)
+        markCellTableAmount.style.cssText = "color:#FFFFFF;background:#FF0000";
+        markCellTableAmount.append(
+          Number.parseFloat(currencies_values[i][1]).toFixed(3)
         );
         cellTableAmount.append(markCellTableAmount);
         rowTable.append(cellTableAmount);
         tableTBody.append(rowTable);
         dataTable.append(tableTBody);
-        htmlElement_name.push(cellTableName);
-        htmlElement_abbr.push(cellTableAbbr);
-        htmlElement_amount.push(cellTableAmount);
+        htmlMainTable.push(rowTable);
       } else {
-        htmlElement_name[i].innerHTML = matchedCurrencyName[0];
-        htmlElement_abbr[i].innerHTML = currencies_values[i][0];
-        htmlElement_amount[i].innerHTML = `<mark style="color:#FFFFFF;background:#FF0000;">${Number.parseFloat(currencies_values[i][1]).toFixed(2)}</mark>`;
-        rowTable.addEventListener('mouseover',()=>{
-          htmlElement_amount[i].children[0].style.background = "#000928";
-        });
-        rowTable.addEventListener('mouseleave',()=>{
-          htmlElement_amount[i].children[0].innerHTML.style.background = "#FF0000";
-        });
+        if (condition == filterResultArray) {
+          for (let u = 0; u < filtarationTable.length; u++) {
+            filtarationTable[i].children[0].innerHTML = matchedCurrencyName[0];
+            filtarationTable[i].children[1].innerHTML = condition[i][0];
+            filtarationTable[
+              i
+            ].children[2].innerHTML = `<mark style="color:#FFFFFF;background:#FF0000;">${Number.parseFloat(
+              condition[i][1]
+            ).toFixed(3)}</mark>`;
+          }
+        } else {
+          htmlMainTable[i].children[0].innerHTML = matchedCurrencyName[0];
+          htmlMainTable[i].children[1].innerHTML = condition[i][0];
+          htmlMainTable[
+            i
+          ].children[2].innerHTML = `<mark style="color:#FFFFFF;background:#FF0000;">${Number.parseFloat(
+            condition[i][1]
+          ).toFixed(3)}</mark>`;
+          htmlMainTable[i].addEventListener("mouseover", () => {
+            htmlMainTable[i].children[2].firstChild.style.background =
+              "#000928";
+          });
+          htmlMainTable[i].addEventListener("mouseleave", () => {
+            htmlMainTable[i].children[2].firstChild.style.background =
+              "#FF0000";
+          });
+        }
       }
-
       if (dataTable.children[1].nodeName === "TBODY") {
-        dataTable.children[1].children[i].setAttribute("data-according-to", baseName);
+        dataTable.children[1].children[i].setAttribute(
+          "data-according-to",
+          baseName
+        );
       }
     }
-  }
+  };
 }
-setTimeout(()=>{
+setTimeout(() => {
   getCurrencyDetails();
-},10);
+}, 10);
+
 //getCurrencyDetails();
 baseC.addEventListener("change", function (evnet) {
   baseName = baseC.value;
-  if (evnet.target.getAttribute('data-according-to') !== 'EGP')
-    elementCreationStatus = 'off';
+  if (evnet.target.getAttribute("data-according-to") !== "EGP")
+    elementCreationStatus = "off";
+  if (currencyFilterTxt.value !== " ") {
+    filterResultArray.length = 0;
+  }
   getCurrencyDetails(sortType);
 });
 sortSelect.addEventListener("change", function (event) {
   sortType = event.target.value;
-  if (sortType === 'dsc')
-    sor_dsc = 'off';
+  if (sortType === "dsc") sor_dsc = "off";
+  filterResultArray.length = 0;
   getCurrencyDetails(sortType);
 });
 //filter table
 currencyFilterTxt.onkeyup = function () {
   const inputStr = currencyFilterTxt.value.toUpperCase();
-  document
-    .querySelectorAll("#dataTable tr:not(.header)")
-    .forEach((tr) => {
+  document.querySelectorAll("#dataTable tr:not(.header)").forEach((tr) => {
+    const anyMatch = [...tr.children].some((td) =>
+      td.textContent.toUpperCase().includes(inputStr)
+    );
+    if (anyMatch) {
+      tr.style.removeProperty("display");
+      userMadeAFilter = true;
+      if (sortType === "dsc") defaultSortIs = "dsc";
+      else defaultSortIs = "asc";
+    } else {
+      tr.style.display = "none";
+    }
+    if (currencyFilterTxt.value == "") {
+      userMadeAFilter = false;
+    }
+  });
+  const key = event.key;
+  if (key === "Backspace") {
+    userMadeAFilter = false;
+    filterResultArray.length = 0;
+    htmlMainTable.forEach((tr) => {
       const anyMatch = [...tr.children].some((td) =>
         td.textContent.toUpperCase().includes(inputStr)
       );
-      if (anyMatch) tr.style.removeProperty("display");
-      else tr.style.display = "none";
+      if (anyMatch) {
+        tr.style.removeProperty("display");
+      } else {
+        tr.style.display = "none";
+      }
     });
+    filtarationTable.length = 0;
+  }
 };
 let requestURLForCurrencyConvert;
 let currencyFrom;
@@ -215,12 +291,12 @@ function getResult() {
       if (currency == "result") {
         if (
           !isNaN(
-            Number.parseFloat(currencyConvertedResponse[currency]).toFixed(2)
+            Number.parseFloat(currencyConvertedResponse[currency]).toFixed(3)
           )
         ) {
           resultTxt.value = Number.parseFloat(
             currencyConvertedResponse[currency]
-          ).toFixed(2);
+          ).toFixed(3);
         }
       }
     }
