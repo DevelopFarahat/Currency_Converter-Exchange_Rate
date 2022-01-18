@@ -177,7 +177,7 @@ function getCurrencyDetails(sortType = "dsc") {
 }
 setTimeout(() => {
   getCurrencyDetails();
-},.5000);
+}, 0.5);
 //getCurrencyDetails();
 baseC.addEventListener("change", function (evnet) {
   baseName = baseC.value;
@@ -204,25 +204,22 @@ currencyFilterTxt.onkeyup = function () {
     );
     if (anyMatch) {
       tr.style.removeProperty("display");
+      if (tr.getAttribute("style") !== "display: none;") {
+        numberOfRowExistOnTable += 1;
+      }
       userMadeAFilter = true;
       if (sortType === "dsc") defaultSortIs = "dsc";
       else defaultSortIs = "asc";
     } else {
       tr.style.display = "none";
     }
-    if (tr.getAttribute("style") !== "display: none;")
-      numberOfRowExistOnTable += 1;
-    if (numberOfRowExistOnTable === 1) {
-      sortSelect.style.cssText = "cursor:not-allowed;";
-      sortSelect.setAttribute("disabled", true);
-    }
-
     if (currencyFilterTxt.value == "") {
       userMadeAFilter = false;
     }
   });
   const key = event.key;
   if (key === "Backspace") {
+    numberOfRowExistOnTable = 0;
     userMadeAFilter = false;
     filterResultArray.length = 0;
     htmlMainTable.forEach((tr) => {
@@ -231,11 +228,22 @@ currencyFilterTxt.onkeyup = function () {
       );
       if (anyMatch) {
         tr.style.removeProperty("display");
+        if (tr.getAttribute("style") !== "display: none;") {
+          numberOfRowExistOnTable += 1;
+        }
       } else {
         tr.style.display = "none";
       }
     });
     filtarationTable.length = 0;
+  }
+  if (numberOfRowExistOnTable === 1) {
+    console.log(true);
+    sortSelect.style.cssText = "cursor:not-allowed;";
+    sortSelect.setAttribute("disabled", true);
+  } else {
+    sortSelect.style.cssText = "cursor:pointer;";
+    sortSelect.removeAttribute("disabled");
   }
 };
 let requestURLForCurrencyConvert;
