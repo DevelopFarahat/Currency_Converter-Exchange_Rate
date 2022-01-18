@@ -55,6 +55,7 @@
   appearance: button;
   background-image: none;
   font-family: "Times New Roman", Times, serif;
+  cursor: pointer;
 }
 .opt {
   font-family: "Times New Roman", Times, serif;
@@ -152,6 +153,7 @@ input[type="number"] {
   height: 30px;
   color: #040000;
   font-family: "Times New Roman", Times, serif;
+  cursor: pointer;
 }
 input[name="filter-text"] {
   flex: 0 1 50%;
