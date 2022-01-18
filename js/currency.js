@@ -177,8 +177,7 @@ function getCurrencyDetails(sortType = "dsc") {
 }
 setTimeout(() => {
   getCurrencyDetails();
-}, 10);
-
+},.5000);
 //getCurrencyDetails();
 baseC.addEventListener("change", function (evnet) {
   baseName = baseC.value;
@@ -197,6 +196,7 @@ sortSelect.addEventListener("change", function (event) {
 });
 //filter table
 currencyFilterTxt.onkeyup = function () {
+  numberOfRowExistOnTable = 0;
   const inputStr = currencyFilterTxt.value.toUpperCase();
   document.querySelectorAll("#dataTable tr:not(.header)").forEach((tr) => {
     const anyMatch = [...tr.children].some((td) =>
@@ -210,6 +210,13 @@ currencyFilterTxt.onkeyup = function () {
     } else {
       tr.style.display = "none";
     }
+    if (tr.getAttribute("style") !== "display: none;")
+      numberOfRowExistOnTable += 1;
+    if (numberOfRowExistOnTable === 1) {
+      sortSelect.style.cssText = "cursor:not-allowed;";
+      sortSelect.setAttribute("disabled", true);
+    }
+
     if (currencyFilterTxt.value == "") {
       userMadeAFilter = false;
     }
