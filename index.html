@@ -59,16 +59,16 @@
       <div class="row1">
         <div>
           <div class="base-currency-label-select-conttainer">
-            <label class="label-base-currency">base currency</label>
-            <select id="baseCurrency" class="base-currency form-select">
+            <label class="label-base-currency" for="base-currency">base currency</label>
+            <select id="baseCurrency" name="base-currency" class="base-currency form-select">
               <option class="opt" value="selected">select</option>
             </select>
           </div>
         </div>
         <div>
           <div class="target-currency-label-select-container">
-            <label class="label-target-currency">target currency</label>
-            <select class="target-currency form-select" id="targetCurrency">
+            <label class="label-target-currency" for="target-currency">target currency</label>
+            <select class="target-currency" name="target-currency" form-select" id="targetCurrency">
               <option class="opt" value="selected">select</option>
             </select>
           </div>
@@ -77,25 +77,25 @@
       <div class="row2" id="row2">
         <div>
           <div class="user-amount-label-txt-container">
-            <label class="label-amount">amount</label>
+            <label class="label-amount" for="userInputValue">amount</label>
             <input
               type="number"
-              class="form-control"
-              name="number"
+              class="form-control amount"
+              name="number-amount"
               id="userInputValue"
             />
           </div>
         </div>
         <div>
           <div class="result-label-txt-container">
-            <label class="label-result">result</label>
+            <label class="label-result" for="resultValue">result</label>
             <input
               type="number"
-              class="form-control"
-              name="number"
+              class="form-control result"
+              name="number-result"
               id="resultValue"
-              value="0.00"
-              style="color: #ff0000"
+              value="0.000"
+              style="color: #ca0000"
               readonly
             />
           </div>
@@ -106,7 +106,7 @@
       <div class="row3" id="row4">
         <div>
           <div class="currency-label-select-container">
-            <label class="label-currency-filter">currency</label>
+            <label class="label-currency-filter" for="filterCurrency">currency</label>
             <select
               type="text"
               name="filterTxt"
@@ -117,8 +117,8 @@
         </div>
         <div>
           <div class="filter-currency-label-input-container">
-            <label class="label-currency">Filter</label>
-            <input type="text" name="filter-text" class="form-control" />
+            <label class="label-currency" for="filterTxt">Filter</label>
+            <input type="text" name="filter-text" class="form-control" id="filterTxt" />
           </div>
         </div>
         <div class="date-container">

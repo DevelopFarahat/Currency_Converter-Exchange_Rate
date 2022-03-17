@@ -1,18 +1,23 @@
 @font-face {
   font-family: OpenSans;
+  font-display: swap;
   src: url("/font/OpenSansCondensed-Light.ttf");
 }
 @font-face {
   font-family: OpenSansBold;
+  font-display: swap;
   src: url("/font/OpenSansCondensed-Bold.ttf");
 }
 * {
   margin: 0;
   padding: 0;
 }
+body,html{
+  height:100vh;
+}
 .container1 {
   background-color: #000099;
-  height: 200px;
+  height:40%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -61,7 +66,7 @@
   font-family: "Times New Roman", Times, serif;
   text-transform: capitalize;
 }
-input[name="number"] {
+input[type="number"] {
   flex: 0 1 50%;
   height: 30px;
   padding: 0;
@@ -70,13 +75,14 @@ input[name="number"] {
   border-radius: 3px;
   appearance: none;
 }
-/* Chrome, Safari, Edge, Opera */
+input[value="0.000"]{
+  background-color: #FFFFFF;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
 }
@@ -99,7 +105,7 @@ input[type="number"] {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  height: 60px;
+  height:10%;
   background-color: #000928;
 }
 .row3 {
@@ -141,7 +147,7 @@ input[type="number"] {
   font-size: 1rem;
 }
 .label-currency-filter {
-  flex: 0 1 40%;
+  flex: 0 1 45%;
 }
 .filter-currency {
   flex: 0 1 50%;
@@ -161,16 +167,29 @@ input[name="filter-text"] {
   padding: 0;
   font-family: "Times New Roman", Times, serif;
 }
+.last-update-txt{
+  flex: 0 1 45%;
+  height:30px;
+  text-align: center;
+  padding:3px;
+    border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border:1px solid #FFC200;
+}
 .contanier3 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+
 }
 .table-container {
   flex: 0 1 100%;
-  height: 315px;
+  height:42.4vh;
 }
 .data-table,
 tr,
@@ -200,16 +219,26 @@ tr {
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
-tr:hover:not(#header) {
+.row-table:hover:not(#header) {
   background-color: #000928;
   color: #ffffff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-tr:hover:not(#header) mark {
-  background-color: #000928;
-}
 .data-table tr td {
-  width: 33.33%;
+  width: calc(100%/3);
+}
+.row-table:hover mark{
+  background: none;
+  border: 1px solid #ffe600;
+  border-radius: 3px;
+}
+td mark {
+  display:block;
+  width:50%;
+  border-radius:3px;
+  margin:auto;
+  background:#333366;
+  color:#FFFFFF;
 }
 th {
   position: sticky !important;
@@ -266,9 +295,12 @@ th {
   appearance: button;
   background-image: none;
 }
+.hide{
+  display:none;
+}
 @media screen and (min-width: 225px) and (max-width: 300px) {
   .container1 {
-    height: 180px;
+   height:30%;
   }
   .row1,
   .row2 {
@@ -287,7 +319,7 @@ th {
   .target-currency {
     flex: 0 1 64%;
   }
-  input[name="number"] {
+  input[type="number"] {
     flex: 0 1 65%;
   }
   .label-amount,
@@ -301,42 +333,43 @@ th {
   }
   .label-result,
   .label-amount {
-    flex: 0 1 31%;
+    flex: 0 1 17%;
     text-align: left;
-  }
-  .container2 {
-    height: 45px;
   }
   .row3 {
     flex-direction: row;
   }
   .row3 > div {
     width: 100%;
+    flex-direction: column;
   }
-  .row3 > div > * {
-    flex: 0 1 85%;
-    height: 25px;
+  .row3 > div > div {
+    flex: 0 1 88%;
+    height: 100%;
+    flex-direction: column;
   }
   .last-update-txt {
     text-align: center;
     font-size: 0.6rem;
-    padding: 5px;
-  }
-  .row3 div label:not(.last-update-txt) {
-    display: none;
+    padding: 3px;
+    border-radius: 3px;
   }
   .filter-currency,
   input[name="filter-text"] {
-    flex: 0 1 90%;
-    height: 25px;
+    width:90%;
+  }
+  .data-table th,tr,td{
+    letter-spacing: 0;
   }
   .data-table td {
     font-size: 0.5rem;
   }
-  .table-container {
-    height: 350px;
+  .data-table th {
+    font-size: 0.8rem;
   }
-  /* start section four */
+  .table-container {
+    height: 52.4vh;
+  }
   .row4 > div > div {
     flex: 0 1 100%;
     justify-content: flex-start;
@@ -352,9 +385,11 @@ th {
     height: 25px;
     font-size: 0.7rem;
   }
-  /* end */
 }
-@media screen and (min-width: 300px) and (max-width: 580px) {
+@media screen and (min-width: 300px) and (max-width: 620px) {
+  .container1{
+    height:30%;
+  }
   .row1 > div,
   .row2 > div {
     height: 70%;
@@ -366,7 +401,7 @@ th {
     height: 100%;
     justify-content: space-evenly;
   }
-  input[name="number"] {
+  input[type="number"] {
     width: 90%;
     flex: 0 1 40%;
   }
@@ -374,8 +409,8 @@ th {
   .target-currency {
     flex: 0 1 40%;
   }
-  .container2 {
-    height: 85px;
+  .container2{
+    height:14vh;
   }
   .row3 > div {
     height: 100%;
@@ -388,20 +423,17 @@ th {
   }
   .filter-currency,
   input[name="filter-text"] {
-    flex: 0 1 40%;
+    flex: 0 1 35%;
   }
   .last-update-txt {
     font-size: 0.9rem;
     padding: 3px;
   }
   .table-container {
-    height: 290px;
+    height: 48.4vh;
   }
-  .data-table th {
-    font-size: 0.6rem;
-  }
-  .data-table td {
-    font-size: 0.9rem;
+  .data-table tr,th,td{
+    letter-spacing:0;
   }
   .row4 > div > div {
     flex: 0 1 90%;

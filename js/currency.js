@@ -54,9 +54,11 @@ let sor_dsc = "on";
 let elementCreationStatus = "on";
 let filterResultArray = [];
 let userMadeAFilter = false;
+let inputStillConatinningLetters = false;
 let condition;
 let filtarationTable = [];
 let defaultSortIs;
+
 function getCurrencyDetails(sortType = "dsc") {
   let requestURLForFilterCurrency = `https://api.exchangerate.host/latest?base=${baseName}`;
   let req = new XMLHttpRequest();
@@ -68,7 +70,7 @@ function getCurrencyDetails(sortType = "dsc") {
     for (let values in reponseValues) {
       if (values == "date") updatedDate.innerHTML = reponseValues[values];
       updatedDate.style.color = "#FFFFFF";
-      updatedDate.style.background = "#FF0000";
+      updatedDate.style.background = "#333366";
       if (values == "rates") {
         currencies_values = Object.entries(reponseValues[values]);
       }
@@ -85,12 +87,18 @@ function getCurrencyDetails(sortType = "dsc") {
       }
     }
 
+    if (numberOfRowExistOnTable === 3 && inputStillConatinningLetters == true) {
+      currencies_values.sort((a, b) => b[1] - a[1]);
+
+    }
     htmlMainTable.forEach((tr, index) => {
-      if (userMadeAFilter === true) {
+      if (userMadeAFilter === true || inputStillConatinningLetters == true) {
         if (tr.getAttribute("style") !== "display: none;") {
+
           filterResultArray.push(currencies_values[index]);
           filtarationTable.push(tr);
           if (sortType === "dsc") {
+
             filterResultArray.sort((a, b) => b[1] - a[1]);
           } else {
             filterResultArray.sort((a, b) => a[1] - b[1]);
@@ -98,10 +106,11 @@ function getCurrencyDetails(sortType = "dsc") {
         }
       }
     });
-    if (userMadeAFilter === true) {
+    if (userMadeAFilter === true || inputStillConatinningLetters === true) {
       condition = filterResultArray;
     } else {
       condition = currencies_values;
+
     }
     for (let i = 0; i < condition.length; i++) {
       let matchedCurrencyName = currencies_Names_code.find(
@@ -113,12 +122,19 @@ function getCurrencyDetails(sortType = "dsc") {
         elementCreationStatus === "on"
       ) {
         let rowTable = document.createElement("tr");
+        rowTable.className = "row-table";
+        /*
         rowTable.addEventListener("mouseover", () => {
-          markCellTableAmount.style.background = "#000928";
+        markCellTableAmount.style.cssText = "  background:none;border:1px solid yellow; margin:auto;border-radius:3px;color:#FFFFFF;";
+        rowTable.style.background = "#000928";
+        rowTable.style.color = "#FFFFFF";
         });
         rowTable.addEventListener("mouseleave", () => {
-          markCellTableAmount.style.background = "#FF0000";
+          rowTable.style.background = "none";
+          rowTable.style.color = "#000000";
+          markCellTableAmount.style.cssText = "background:#FF0000;margin:auto;border-radius:3px;color:#FFFFFF";
         });
+        */
         let cellTableName = document.createElement("td");
         cellTableName.append(matchedCurrencyName[0]);
         rowTable.append(cellTableName);
@@ -128,7 +144,7 @@ function getCurrencyDetails(sortType = "dsc") {
         rowTable.append(cellTableAbbr);
         let cellTableAmount = document.createElement("td");
         let markCellTableAmount = document.createElement("mark");
-        markCellTableAmount.style.cssText = "color:#FFFFFF;background:#FF0000";
+        //markCellTableAmount.style.cssText = "color:#FFFFFF;background:#FF0000";
         markCellTableAmount.append(
           Number.parseFloat(currencies_values[i][1]).toFixed(3)
         );
@@ -147,6 +163,18 @@ function getCurrencyDetails(sortType = "dsc") {
             ].children[2].innerHTML = `<mark style="color:#FFFFFF;background:#FF0000;">${Number.parseFloat(
               condition[i][1]
             ).toFixed(3)}</mark>`;
+            /*
+            filtarationTable[i].addEventListener("mouseover", () => {
+              filtarationTable[i].children[2].children[0].style.cssText = "background:none;border:1px solid yellow;margin:auto;border-radius:3px;color:#FFFFFF";
+              filtarationTable[i].style.background = "#000928";
+              filtarationTable[i].style.color = "#FFFFFF";
+              });
+              filtarationTable[i].addEventListener("mouseleave", () => {
+                filtarationTable[i].style.background = "none";
+                filtarationTable[i].style.color = "#000000";
+                filtarationTable[i].children[2].children[0].style.cssText = "background:#FF0000;margin:auto;border-radius:3px;color:#FFFFFF";
+              });
+              */
           }
         } else {
           htmlMainTable[i].children[0].innerHTML = matchedCurrencyName[0];
@@ -156,14 +184,19 @@ function getCurrencyDetails(sortType = "dsc") {
           ].children[2].innerHTML = `<mark style="color:#FFFFFF;background:#FF0000;">${Number.parseFloat(
             condition[i][1]
           ).toFixed(3)}</mark>`;
+          /*
           htmlMainTable[i].addEventListener("mouseover", () => {
-            htmlMainTable[i].children[2].firstChild.style.background =
-              "#000928";
-          });
-          htmlMainTable[i].addEventListener("mouseleave", () => {
-            htmlMainTable[i].children[2].firstChild.style.background =
-              "#FF0000";
-          });
+            console.log("hey");
+            htmlMainTable[i].children[2].children[0].style.cssText = "background:none;border:1px solid yellow;margin:auto;border-radius:3px;color:#FFFFFF";
+            htmlMainTable[i].style.background = "#000928";
+            htmlMainTable[i].style.color = "#FFFFFF";
+            });
+            htmlMainTable[i].addEventListener("mouseleave", () => {
+              htmlMainTable[i].style.background = "none";
+              htmlMainTable[i].style.color = "#000000";
+              htmlMainTable[i].children[2].children[0].style.cssText = "background:#FF0000;margin:auto;border-radius:3px;color:#FFFFFF";
+            });
+            */
         }
       }
       if (dataTable.children[1].nodeName === "TBODY") {
@@ -177,7 +210,7 @@ function getCurrencyDetails(sortType = "dsc") {
 }
 setTimeout(() => {
   getCurrencyDetails();
-}, 0.5);
+}, .5);
 //getCurrencyDetails();
 baseC.addEventListener("change", function (evnet) {
   baseName = baseC.value;
@@ -195,8 +228,9 @@ sortSelect.addEventListener("change", function (event) {
   getCurrencyDetails(sortType);
 });
 //filter table
+let numberOfRowExistOnTable = 0;
 currencyFilterTxt.onkeyup = function () {
-  numberOfRowExistOnTable = 0;
+
   const inputStr = currencyFilterTxt.value.toUpperCase();
   document.querySelectorAll("#dataTable tr:not(.header)").forEach((tr) => {
     const anyMatch = [...tr.children].some((td) =>
@@ -221,7 +255,21 @@ currencyFilterTxt.onkeyup = function () {
   if (key === "Backspace") {
     numberOfRowExistOnTable = 0;
     userMadeAFilter = false;
+    inputStr.value == '' ? inputStillConatinningLetters = false : inputStillConatinningLetters = true;
     filterResultArray.length = 0;
+    if (defaultSortIs === "dsc")
+      currencies_values.sort((a, b) => b[1] - a[1]);
+    else currencies_values.sort((a, b) => a[1] - b[1]);
+    for (let i = 0; i < currencies_values.length; i++) {
+      let matchedNames = currencies_Names_code.find((item) => item[1] === currencies_values[i][0]);
+      htmlMainTable[i].children[0].innerHTML = matchedNames[0];
+      htmlMainTable[i].children[1].innerHTML = matchedNames[1];
+      htmlMainTable[i
+
+      ].children[2].innerHTML = `<mark style="color:#FFFFFF;background:#FF0000;">${Number.parseFloat(
+        currencies_values[0][1]
+      ).toFixed(3)}</mark>`;
+    }
     htmlMainTable.forEach((tr) => {
       const anyMatch = [...tr.children].some((td) =>
         td.textContent.toUpperCase().includes(inputStr)
@@ -238,7 +286,6 @@ currencyFilterTxt.onkeyup = function () {
     filtarationTable.length = 0;
   }
   if (numberOfRowExistOnTable === 1) {
-    console.log(true);
     sortSelect.style.cssText = "cursor:not-allowed;";
     sortSelect.setAttribute("disabled", true);
   } else {
@@ -294,6 +341,7 @@ userInputValue.onkeyup = function getUserAmountValue() {
     }
   }
 };
+
 function getResult() {
   requestURLForCurrencyConvert = `https://api.exchangerate.host/convert?from=${currencyFrom}&to=${currencyTo}&amount=${amountValue}`;
   const xhttp = new XMLHttpRequest();
