@@ -168,5 +168,9 @@
       </div>
     </div>
     <script src="js/currency.js"></script>
+    <script>
+      var viewport = document.querySelector("meta[name=viewport]");
+      viewport.setAttribute("content", viewport.content + ", height=" + window.innerHeight);
+      </script>
   </body>
 </html>

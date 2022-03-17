@@ -123,18 +123,6 @@ function getCurrencyDetails(sortType = "dsc") {
       ) {
         let rowTable = document.createElement("tr");
         rowTable.className = "row-table";
-        /*
-        rowTable.addEventListener("mouseover", () => {
-        markCellTableAmount.style.cssText = "  background:none;border:1px solid yellow; margin:auto;border-radius:3px;color:#FFFFFF;";
-        rowTable.style.background = "#000928";
-        rowTable.style.color = "#FFFFFF";
-        });
-        rowTable.addEventListener("mouseleave", () => {
-          rowTable.style.background = "none";
-          rowTable.style.color = "#000000";
-          markCellTableAmount.style.cssText = "background:#FF0000;margin:auto;border-radius:3px;color:#FFFFFF";
-        });
-        */
         let cellTableName = document.createElement("td");
         cellTableName.append(matchedCurrencyName[0]);
         rowTable.append(cellTableName);
@@ -144,7 +132,6 @@ function getCurrencyDetails(sortType = "dsc") {
         rowTable.append(cellTableAbbr);
         let cellTableAmount = document.createElement("td");
         let markCellTableAmount = document.createElement("mark");
-        //markCellTableAmount.style.cssText = "color:#FFFFFF;background:#FF0000";
         markCellTableAmount.append(
           Number.parseFloat(currencies_values[i][1]).toFixed(3)
         );
@@ -160,43 +147,18 @@ function getCurrencyDetails(sortType = "dsc") {
             filtarationTable[i].children[1].innerHTML = condition[i][0];
             filtarationTable[
               i
-            ].children[2].innerHTML = `<mark style="color:#FFFFFF;background:#FF0000;">${Number.parseFloat(
+            ].children[2].innerHTML = `<mark style="color:#FFFFFF;background:#333366;">${Number.parseFloat(
               condition[i][1]
             ).toFixed(3)}</mark>`;
-            /*
-            filtarationTable[i].addEventListener("mouseover", () => {
-              filtarationTable[i].children[2].children[0].style.cssText = "background:none;border:1px solid yellow;margin:auto;border-radius:3px;color:#FFFFFF";
-              filtarationTable[i].style.background = "#000928";
-              filtarationTable[i].style.color = "#FFFFFF";
-              });
-              filtarationTable[i].addEventListener("mouseleave", () => {
-                filtarationTable[i].style.background = "none";
-                filtarationTable[i].style.color = "#000000";
-                filtarationTable[i].children[2].children[0].style.cssText = "background:#FF0000;margin:auto;border-radius:3px;color:#FFFFFF";
-              });
-              */
           }
         } else {
           htmlMainTable[i].children[0].innerHTML = matchedCurrencyName[0];
           htmlMainTable[i].children[1].innerHTML = condition[i][0];
           htmlMainTable[
             i
-          ].children[2].innerHTML = `<mark style="color:#FFFFFF;background:#FF0000;">${Number.parseFloat(
+          ].children[2].innerHTML = `<mark style="color:#FFFFFF;background:#333366;">${Number.parseFloat(
             condition[i][1]
           ).toFixed(3)}</mark>`;
-          /*
-          htmlMainTable[i].addEventListener("mouseover", () => {
-            console.log("hey");
-            htmlMainTable[i].children[2].children[0].style.cssText = "background:none;border:1px solid yellow;margin:auto;border-radius:3px;color:#FFFFFF";
-            htmlMainTable[i].style.background = "#000928";
-            htmlMainTable[i].style.color = "#FFFFFF";
-            });
-            htmlMainTable[i].addEventListener("mouseleave", () => {
-              htmlMainTable[i].style.background = "none";
-              htmlMainTable[i].style.color = "#000000";
-              htmlMainTable[i].children[2].children[0].style.cssText = "background:#FF0000;margin:auto;border-radius:3px;color:#FFFFFF";
-            });
-            */
         }
       }
       if (dataTable.children[1].nodeName === "TBODY") {
@@ -266,7 +228,7 @@ currencyFilterTxt.onkeyup = function () {
       htmlMainTable[i].children[1].innerHTML = matchedNames[1];
       htmlMainTable[i
 
-      ].children[2].innerHTML = `<mark style="color:#FFFFFF;background:#FF0000;">${Number.parseFloat(
+      ].children[2].innerHTML = `<mark style="color:#FFFFFF;background:#333366;">${Number.parseFloat(
         currencies_values[0][1]
       ).toFixed(3)}</mark>`;
     }
