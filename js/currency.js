@@ -172,7 +172,7 @@ function getCurrencyDetails(sortType = "dsc") {
 }
 setTimeout(() => {
   getCurrencyDetails();
-}, .5);
+},1000);
 //getCurrencyDetails();
 baseC.addEventListener("change", function (evnet) {
   baseName = baseC.value;
